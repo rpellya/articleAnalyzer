@@ -8,10 +8,10 @@
  *  -  Node.js v22.22.1
  *
  * Запуск:
- *   npx tsx json-server/article-analyzer/main.ts <- интерактивное меню
- *   npx tsx json-server/article-analyzer/main.ts [command] [options]
+ *   npx tsx src/main.ts <- интерактивное меню
+ *   npx tsx src/main.ts [command] [options]
  *
- *   npx jest json-server/article-analyzer/app/__tests__/  --coverage
+ *   npx jest src/app/__tests__/  --coverage
  *
  * Для запуска мутационного тестирования:
  * npx stryker run --mutate "json-server/article-analyzer/app/algorithm/**!/*.ts" --incremental

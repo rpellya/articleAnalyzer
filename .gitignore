@@ -1,6 +1,9 @@
 node_modules
 dist
 
+# jest
+coverage
+
 # sonarqube
 .scannerwork
 sonar-project.properties
