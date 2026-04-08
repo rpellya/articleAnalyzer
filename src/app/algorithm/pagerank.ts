@@ -6,8 +6,8 @@ export function pagerankSparse(
     iterations: number,
 ): number[] {
     if (iterations < 1) throw new Error('Iterations must be >= 1');
-    // if (damping <= 0 || damping >= 1)
-    //     throw new Error('Damping must be in (0,1)');
+    if (damping <= 0 || damping >= 1)
+        throw new Error('Damping must be in (0,1)');
 
     const { n, outDegree, outLinks } = graph;
 
@@ -20,7 +20,6 @@ export function pagerankSparse(
                 // ветка true
                 const c = (damping * pr[v]) / outDegree[v];
 
-                // eslint-disable-next-line no-restricted-syntax
                 for (const j of outLinks[v]) newPr[j] += c;
             } else {
                 // висячая вершина

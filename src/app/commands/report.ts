@@ -13,15 +13,8 @@ export function cmdReport() {
 
     const pr = pagerankSparse(state.sparse, 0.85, 20);
 
-    console.log('outLinks', state.sparse.outLinks);
-
-    const edges = state.sparse.outLinks.reduce(
-        (s: any, l: string | any[]) => s + l.length,
-        0,
-    );
-    const dangling = state.sparse.outDegree.filter(
-        (d: number) => d === 0,
-    ).length;
+    const edges = state.sparse.outLinks.reduce((s, l) => s + l.length, 0);
+    const dangling = state.sparse.outDegree.filter((d) => d === 0).length;
 
     NL();
     console.log(HR('═'));
@@ -41,7 +34,7 @@ export function cmdReport() {
     console.log(GRAY('  Всего цитирований:  ') + BOLD(edges));
     console.log(
         GRAY('  Средняя степень:    ') +
-            BOLD((edges / state.sparse.n).toFixed(2)),
+        BOLD((edges / state.sparse.n).toFixed(2)),
     );
     console.log(GRAY('  Висячих вершин:     ') + BOLD(dangling));
     NL();
@@ -53,17 +46,16 @@ export function cmdReport() {
     console.log(BOLD('  Топ статей по PageRank (метод: разреженные списки):'));
     NL();
 
-    ranked.forEach((a: { title: string | any[]; rank: number }, i: number) => {
-        // eslint-disable-next-line no-nested-ternary
+    ranked.forEach((a, i) => {
         const medal = i === 0 ? YELLOW('★') : i < 3 ? GRAY('·') : GRAY(' ');
         console.log(
             GRAY('  ') +
-                medal +
-                GRAY(` ${i + 1}.`.padEnd(5)) +
-                BOLD(`"${a.title.slice(0, 52)}"`) +
-                GRAY('  (rank: ') +
-                GREEN(a.rank.toFixed(6)) +
-                GRAY(')'),
+            medal +
+            GRAY(` ${i + 1}.`.padEnd(5)) +
+            BOLD(`"${a.title.slice(0, 52)}"`) +
+            GRAY('  (rank: ') +
+            GREEN(a.rank.toFixed(6)) +
+            GRAY(')'),
         );
     });
 }

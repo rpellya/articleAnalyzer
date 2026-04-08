@@ -1,4 +1,5 @@
 import { validateArticle } from '../algorithm/validator';
+import { Article } from '../types';
 
 describe('Валидация статей', () => {
     test.each([
@@ -16,6 +17,6 @@ describe('Валидация статей', () => {
         [{ id: '1', title: 'A', citations: ['2'] }, true],
         [{ id: '1', title: 'A', citations: '2' }, false],
     ])('validateArticle(%p) = %p', (input, expected) => {
-        expect(validateArticle(input)).toBe(expected);
+        expect(validateArticle(input as Article)).toBe(expected);
     });
 });

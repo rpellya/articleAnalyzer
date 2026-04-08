@@ -3,7 +3,6 @@ import { Article, GraphDense, GraphSparse } from '../types';
 /**
  * Строит разреженное представление графа.
  */
-
 export function buildSparse(articles: Article[]): GraphSparse {
     const n = articles.length;
 
@@ -34,8 +33,9 @@ export function buildDense(articles: Article[]): GraphDense {
     const matrix = Array.from({ length: n }, () => Array(n).fill(0));
 
     articles.forEach((a, i) =>
-        (a.citations || []).forEach((cid: any) => {
+        (a.citations || []).forEach((cid) => {
             const j = idx.get(cid);
+
             if (j !== undefined) matrix[i][j] = 1;
         }),
     );

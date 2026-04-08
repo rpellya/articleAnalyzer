@@ -10,12 +10,12 @@ export const MENU_ITEMS = [
     },
     {
         key: '3',
-        label: 'PageRank — разреженные списки [Способ 2]',
+        label: 'Рассчитать PageRank — разреженные списки [Способ 2]',
         action: 'pr-sparse',
     },
     {
         key: '4',
-        label: 'PageRank — плотная матрица [Способ 1]',
+        label: 'Рассчитать PageRank — плотная матрица [Способ 1]',
         action: 'pr-matrix',
     },
     {
@@ -29,7 +29,7 @@ export const MENU_ITEMS = [
         label: 'Экспортировать результаты в JSON',
         action: 'export',
     },
-    { key: '8', label: 'Тесты — все группы', action: 'test-all' },
+    { key: '8', label: 'Запустить все тесты', action: 'test-all' },
     {
         key: '9',
         label: 'Тесты — классы эквивалентности',
@@ -47,7 +47,7 @@ export function printMenu() {
     console.log(HR('─'));
     console.log(
         BOLD('  Интерактивное меню') +
-            GRAY('  · введите цифру и нажмите Enter'),
+        GRAY('  · введите цифру и нажмите Enter'),
     );
     console.log(HR('─'));
     MENU_ITEMS.forEach((item) => {

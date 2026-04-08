@@ -22,13 +22,13 @@ export function cmdBuildGraph() {
 
     console.log(
         GRAY('  Представление 1: ') +
-            CYAN(BOLD('Плотная матрица')) +
-            GRAY(' [Способ 1, O(N²)]'),
+        CYAN(BOLD('Плотная матрица')) +
+        GRAY(' [Способ 1, O(N²)]'),
     );
     console.log(
         GRAY('  Представление 2: ') +
-            GREEN(BOLD('Разреженные списки')) +
-            GRAY(' [Способ 2, O(N+E)]'),
+        GREEN(BOLD('Разреженные списки')) +
+        GRAY(' [Способ 2, O(N+E)]'),
     );
     NL();
     console.log(GRAY('  Вершин:            ') + BOLD(state.sparse.n));
@@ -36,8 +36,8 @@ export function cmdBuildGraph() {
     console.log(GRAY('  Средняя степень:   ') + BOLD(avgDeg));
     console.log(
         GRAY('  Висячих вершин:    ') +
-            BOLD(dangling) +
-            GRAY('  (outDegree = 0, равномерное распределение)'),
+        BOLD(dangling) +
+        GRAY('  (outDegree = 0, равномерное распределение)'),
     );
     NL();
 
@@ -50,7 +50,7 @@ export function cmdBuildGraph() {
     const n = Math.min(state.sparse.n, 8);
     const labels = state.articles
         .slice(0, n)
-        .map((a) => a.id.slice(0, 5).padEnd(6));
+        .map((a) => a.id && a.id.slice(0, 5).padEnd(6));
     const header = GRAY('        ') + labels.map((l) => GRAY(l)).join('');
     console.log(GRAY('  Матрица смежности') + GRAY(` (первые ${n}×${n}):`));
     console.log(`  ${header}`);
@@ -78,19 +78,19 @@ export function cmdBuildGraph() {
 
         const neighbors =
             state.sparse.outLinks[i]
-                .map((j) => CYAN(state.articles ? state.articles[j].id : '0'))
+                .map((j) => CYAN(state.articles && state.articles[j].id ? state.articles[j].id : '0'))
                 .join(', ') || GRAY('—');
 
         const deg = state.sparse.outDegree[i];
 
         console.log(
             GRAY('  ') +
-                BOLD(a.id.padEnd(8)) +
-                GRAY('→ [') +
-                neighbors +
-                GRAY(']') +
-                GRAY(`  deg=${deg}`) +
-                (deg === 0 ? YELLOW('  ← висячая') : ''),
+            BOLD(a.id.padEnd(8) || '') +
+            GRAY('→ [') +
+            neighbors +
+            GRAY(']') +
+            GRAY(`  deg=${deg}`) +
+            (deg === 0 ? YELLOW('  ← висячая') : ''),
         );
     });
 }

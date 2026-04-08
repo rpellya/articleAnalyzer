@@ -1,6 +1,6 @@
-import { BOLD, CYAN, GRAY, GREEN, HR, NL, YELLOW } from '../tools';
-import { ensureData } from '../ensureData';
 import { state } from '../state';
+import { ensureData } from '../ensureData';
+import { BOLD, CYAN, GRAY, GREEN, HR, NL, YELLOW } from '../tools';
 import { pagerankDense, pagerankSparse } from '../algorithm/pagerank';
 
 export function cmdCompare(iter: number, damping: number) {
@@ -70,14 +70,8 @@ export function cmdCompare(iter: number, damping: number) {
     row('N (вершин)', state.sparse.n, state.sparse.n);
     row(
         'E (рёбер)',
-        state.sparse.outLinks.reduce(
-            (s: any, l: string | any[]) => s + l.length,
-            0,
-        ),
-        state.sparse.outLinks.reduce(
-            (s: any, l: string | any[]) => s + l.length,
-            0,
-        ),
+        state.sparse.outLinks.reduce((s, l) => s + l.length, 0),
+        state.sparse.outLinks.reduce((s, l) => s + l.length, 0),
     );
     row('Итераций', iter, iter);
     row(`Время, мс (avg ${runs} runs)`, `${tDense} мс`, `${tSparse} мс`);

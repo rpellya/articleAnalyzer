@@ -8,7 +8,7 @@ export function cmdExport(outFile: string, iter: number, damping: number) {
     if (!ensureData()) return;
 
     if (!state.sparse) {
-        console.log('Нет данных для экспорта');
+        console.log('[107] & Граф не построен (нет данных)');
         return;
     }
 
