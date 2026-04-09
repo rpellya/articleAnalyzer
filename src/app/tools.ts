@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // ANSI-ЦВЕТА (без внешних зависимостей)
 export const R = '\x1b[0m';
 export const BOLD = (s: string | number) => `\x1b[1m${s}${R}`;

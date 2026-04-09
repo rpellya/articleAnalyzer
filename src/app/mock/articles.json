@@ -2,50 +2,92 @@
     {
         "id": "a001",
         "title": "Attention is All You Need",
-        "authors": ["Vaswani", "Shazeer", "Parmar"],
+        "authors": [
+            "Vaswani",
+            "Shazeer",
+            "Parmar"
+        ],
         "year": 2017,
-        "citations": ["a002", "a003"]
+        "citations": [
+            "a002",
+            "a003"
+        ]
     },
     {
         "id": "a002",
         "title": "BERT: Pre-training of Deep Bidirectional Transformers",
-        "authors": ["Devlin", "Chang", "Lee"],
+        "authors": [
+            "Devlin",
+            "Chang",
+            "Lee"
+        ],
         "year": 2018,
-        "citations": ["a001", "a003"]
+        "citations": [
+            "a001",
+            "a003"
+        ]
     },
     {
         "id": "a003",
         "title": "GPT-3: Language Models are Few-Shot Learners",
-        "authors": ["Brown", "Mann", "Ryder"],
+        "authors": [
+            "Brown",
+            "Mann",
+            "Ryder"
+        ],
         "year": 2020,
-        "citations": ["a001"]
+        "citations": [
+            "a001"
+        ]
     },
     {
         "id": "a004",
         "title": "Deep Residual Learning for Image Recognition",
-        "authors": ["He", "Zhang", "Ren"],
+        "authors": [
+            "He",
+            "Zhang",
+            "Ren"
+        ],
         "year": 2016,
-        "citations": ["a005"]
+        "citations": [
+            "a005"
+        ]
     },
     {
         "id": "a005",
         "title": "Very Deep Convolutional Networks (VGGNet)",
-        "authors": ["Simonyan", "Zisserman"],
+        "authors": [
+            "Simonyan",
+            "Zisserman"
+        ],
         "year": 2014,
         "citations": []
     },
     {
         "id": "a006",
         "title": "Transformer-XL: Attentive Language Models",
-        "authors": ["Dai", "Yang"],
+        "authors": [
+            "Dai",
+            "Yang"
+        ],
         "year": 2019,
-        "citations": ["a001", "a002"]
+        "citations": [
+            "a001",
+            "a002"
+        ]
     },
     {
         "id": "a007",
         "title": "RoBERTa: A Robustly Optimized BERT Approach",
-        "authors": ["Liu", "Ott"],
+        "authors": [
+            "Liu",
+            "Ott"
+        ],
         "year": 2019,
-        "citations": ["a002", "a003", "a006"]
+        "citations": [
+            "a002",
+            "a003",
+            "a006"
+        ]
     }
 ]

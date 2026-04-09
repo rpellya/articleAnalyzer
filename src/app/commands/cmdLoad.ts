@@ -22,11 +22,11 @@ export async function cmdLoad(filePath: string, silent = false) {
     } else {
         console.log(
             GREEN('  ✓ ') +
-                GRAY('Загружено ') +
-                BOLD(state.articles.length) +
-                GRAY(' статей, ') +
-                BOLD(edges) +
-                GRAY(' ссылок'),
+            GRAY('Загружено ') +
+            BOLD(state.articles.length) +
+            GRAY(' статей, ') +
+            BOLD(edges) +
+            GRAY(' ссылок'),
         );
     }
 }

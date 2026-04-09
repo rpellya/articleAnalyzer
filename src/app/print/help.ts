@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { BOLD, CYAN, DIM, GRAY, GREEN, HR, NL, WHITE, YELLOW } from '../tools';
 
 // ШАПКА / СПРАВКА

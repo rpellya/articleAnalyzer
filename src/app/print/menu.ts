@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { BOLD, CYAN, GRAY, HR, NL, RED } from '../tools';
 
 export const MENU_ITEMS = [

@@ -12,7 +12,7 @@ export function buildSparse(articles: Article[]): GraphSparse {
     const outDegree = Array(n).fill(0);
 
     articles.forEach((a, i) => {
-        (a.citations || []).forEach((cid: any) => {
+        (a.citations || []).forEach((cid) => {
             const j = idx.get(cid);
             if (j === undefined) return; // ignoreMissing
             outLinks[i].push(j);
