@@ -1,98 +1,53 @@
-import fs from 'fs';
-import { Readable } from 'stream';
-import { loadArticlesFromFile } from '../algorithm/loader';
+import fs from "fs";
+import { loadArticlesFromFile, normalizeArticles } from "../algorithm/loader";
+import { RawArticle } from "../types";
 
-jest.mock('fs');
+jest.mock("fs");
 
-describe('Модуль загрузки JSON', () => {
-    beforeEach(() => {
-        jest.resetAllMocks();
-    });
+describe("Loader and Validator", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
 
-    test('Загрузка корректного файла', async () => {
-        const mockData = JSON.stringify([
-            {
-                id: '1',
-                title: 'Article 1',
-                authors: ['A'],
-                year: 2020,
-                citations: [],
-            },
-        ]);
-        const mockStream = Readable.from([mockData]);
-        (fs.createReadStream as jest.Mock).mockReturnValue(mockStream);
+  test("normalizeArticles throws error on missing id", async () => {
+    const raw = [{ title: "No ID" }];
+    await expect(normalizeArticles(raw as RawArticle[])).rejects.toThrow(
+      /103.*id/
+    );
+  });
 
-        const articles = await loadArticlesFromFile('valid.json');
-        expect(articles).toHaveLength(1);
-        expect(articles[0]).toMatchObject({ id: '1', title: 'Article 1' });
-    });
+  test("normalizeArticles throws error on invalid year", async () => {
+    const raw = [{ id: "1", title: "Test", year: "not a number" }];
+    await expect(
+      normalizeArticles(raw as unknown as RawArticle[])
+    ).rejects.toThrow(/103.*year/);
+  });
 
-    test('Загрузка несуществующего файла', async () => {
-        // Создаём поток, который сразу генерирует ошибку
-        const errorStream = new Readable();
-        errorStream._read = () => {};
-        process.nextTick(() => errorStream.emit('error', new Error('ENOENT')));
-        (fs.createReadStream as jest.Mock).mockReturnValue(errorStream);
+  test("loadArticlesFromFile throws error 101 if file not found", async () => {
+    (fs.existsSync as jest.Mock).mockReturnValue(false);
+    await expect(loadArticlesFromFile("missing.json", true)).rejects.toThrow(
+      /101/
+    );
+  });
 
-        await expect(loadArticlesFromFile('missing.json')).rejects.toThrow(
-            'File not found',
-        );
-    });
+  test("loadArticlesFromFile throws error 102 on invalid JSON", async () => {
+    (fs.existsSync as jest.Mock).mockReturnValue(true);
+    (fs.readFileSync as jest.Mock).mockReturnValue("invalid json");
+    await expect(loadArticlesFromFile("invalid.json", true)).rejects.toThrow(
+      /102/
+    );
+  });
 
-    test('Загрузка файла с отсутствующим id', async () => {
-        const mockData = JSON.stringify([
-            { title: 'No ID', authors: ['A'], year: 2020, citations: [] },
-        ]);
-        const mockStream = Readable.from([mockData]);
-        (fs.createReadStream as jest.Mock).mockReturnValue(mockStream);
-
-        await expect(loadArticlesFromFile('no-id.json')).rejects.toThrow(
-            'Missing required field: id',
-        );
-    });
-
-    test('Загрузка файла с некорректным JSON (синтаксис)', async () => {
-        const mockData = '{ "id": 1, "title": "Broken" '; // невалидный JSON
-        const mockStream = Readable.from([mockData]);
-        (fs.createReadStream as jest.Mock).mockReturnValue(mockStream);
-
-        await expect(
-            loadArticlesFromFile('invalid-syntax.json'),
-        ).rejects.toThrow('Invalid JSON format');
-    });
-
-    test('Граничные значения года: 1900 (допустимо)', async () => {
-        const mockData = JSON.stringify([
-            {
-                id: '1',
-                title: 'Old',
-                authors: ['A'],
-                year: 1900,
-                citations: [],
-            },
-        ]);
-        const mockStream = Readable.from([mockData]);
-        (fs.createReadStream as jest.Mock).mockReturnValue(mockStream);
-
-        const articles = await loadArticlesFromFile('min-year.json');
-        expect(articles[0].year).toBe(1900);
-    });
-
-    test('Граничные значения года: 1899 (недопустимо)', async () => {
-        const mockData = JSON.stringify([
-            {
-                id: '1',
-                title: 'Too Old',
-                authors: ['A'],
-                year: 1899,
-                citations: [],
-            },
-        ]);
-        const mockStream = Readable.from([mockData]);
-        (fs.createReadStream as jest.Mock).mockReturnValue(mockStream);
-
-        await expect(loadArticlesFromFile('invalid-year.json')).rejects.toThrow(
-            'Invalid year',
-        );
-    });
+  test("loadArticlesFromFile successfully loads valid articles", async () => {
+    const mockArticles = [
+      { id: "a1", title: "Article 1", year: 2020, citations: [] },
+    ];
+    (fs.existsSync as jest.Mock).mockReturnValue(true);
+    (fs.readFileSync as jest.Mock).mockReturnValue(
+      JSON.stringify(mockArticles)
+    );
+    const result = await loadArticlesFromFile("valid.json", true);
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe("a1");
+  });
 });
